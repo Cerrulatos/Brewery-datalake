@@ -1,0 +1,12 @@
+# Usar a imagem oficial do Airflow como base
+FROM apache/airflow:2.8.0-python3.8
+
+# Evitar warning de pip
+ENV PIP_NO_CACHE_DIR=1
+
+# Instalar pytest e outras dependências de teste
+RUN pip install --upgrade pip \
+    && pip install pytest pytest-mock
+
+# Definir diretório de trabalho (opcional, mas recomendado)
+WORKDIR /opt/airflow

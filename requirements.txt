@@ -1,0 +1,8 @@
+requests
+pandas
+pyarrow
+pytest
+great-expectations
+python-dotenv
+pandas
+pyarrow

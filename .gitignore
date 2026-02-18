@@ -1,0 +1,29 @@
+# Data Lake
+datalake/*
+
+# Logs do Airflow
+logs/
+*.log
+~$
+
+# Cache Python
+__pycache__/
+*.pyc
+.pytest_cache/
+*.pyo
+*.egg-info/
+venv/
+
+# Arquivo de ambiente
+.env
+
+# Lixo do sistema
+.DS_Store
+Thumbs.db
+
+# Docker
+*.pid
+
+# OS
+.DS_Store
+Thumbs.db
