@@ -97,12 +97,12 @@ user: airflow
 pass: airflow
 
 ## 🧪 4. Rodar pipeline
-Para executar um pipeline execute os comandos a seguir:
+###Para executar um pipeline execute os comandos a seguir:
 `make dag` ou `docker exec -it airflow_webserver airflow dags trigger brewery_datalake_pipeline`
-# Você também pode Listar as Dags e as tasks com os comandos:
+### Você também pode Listar as Dags e as tasks com os comandos:
 `make ls-dag` ou `docker exec -it airflow_webserver ls /opt/airflow/dags`
 `make ls-task` ou `docker exec -it airflow_webserver airflow tasks list brewery_datalake_pipeline`
-# Caso queira executar o pipeline para uma data especifica utilize o formato 2026-02-17 após os comandos abaixo, caso nenhuma data seja informada será utilizada a data do dia
+### Caso queira executar o pipeline para uma data especifica utilize o formato 2026-02-17 após os comandos abaixo, caso nenhuma data seja informada será utilizada a data do dia
 `make pipeline` ou `docker exec -it airflow_webserver airflow dags test brewery_datalake_pipeline 2026-02-17`
 
 ##📊 5. Rodar Testes
