@@ -69,6 +69,7 @@ Pytest
 
 ### Pré-requisitos
 - GIT
+- VScode
 - Docker
 - Docker Compose
 - Make
@@ -76,10 +77,9 @@ Pytest
 ---
 
 ### 1. Clone
-
-bash
-`git clone <repo>`
-`cd brewery-datalake`
+Crie uma pasta para clonar o projeto e execute o comando
+`git clone https://github.com/Cerrulatos/Brewery-datalake.git`
+Agora abra a pasta do projeto no VS code
 
 ### 2. Configure as variaveis editando o arquivo criando arquivo .env
 `cp example_env .env`
