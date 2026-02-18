@@ -2,18 +2,37 @@ name: CI
 
 on:
   pull_request:
-    branches: [ "develop", "main" ]
+    branches: ["develop", "main"]
   push:
-    branches: [ "develop", "main" ]
+    branches: ["develop", "main"]
 
 jobs:
   tests:
     runs-on: ubuntu-latest
 
-    steps:
-      - uses: actions/checkout@v4
+    env:
+      # Para imports como "from src...."
+      PYTHONPATH: ${{ github.workspace }}
 
-      - name: Set up Python
+      # Variáveis do seu .env (ajustadas para o runner do GitHub)
+      URL_API: "https://api.openbrewerydb.org/v1/breweries?per_page=200"
+
+      # No CI não existe /opt/airflow por padrão; usamos paths no workspace
+      LOG_FOLDER: ${{ github.workspace }}/logs
+      DATALAKE_PATH: ${{ github.workspace }}/datalake
+
+      # Pode ficar como env normal (não é segredo)
+      SENDER_EMAIL: "brewwerynyc@gmail.com"
+
+      # SEGREDOS: configure em Settings -> Secrets and variables -> Actions
+      FERNET_KEY: ${{ secrets.FERNET_KEY }}
+      APP_PASS: ${{ secrets.APP_PASS }}
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Set up Python 3.8
         uses: actions/setup-python@v5
         with:
           python-version: "3.8"
@@ -23,9 +42,11 @@ jobs:
           python -m pip install --upgrade pip
           pip install -r requirements.txt
           pip install pytest
-          
-      - name: Set PYTHONPATH
-        run: echo "PYTHONPATH=${GITHUB_WORKSPACE}" >> $GITHUB_ENV
+
+      - name: Prepare folders
+        run: |
+          mkdir -p "${LOG_FOLDER}"
+          mkdir -p "${DATALAKE_PATH}/metrics"
 
       - name: Run tests
-        run: pytest
+        run: pytest -q
