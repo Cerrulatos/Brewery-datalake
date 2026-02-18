@@ -1,0 +1,29 @@
+{
+  "version": "2.0.0",
+  "tasks": [
+    {
+      "label": "Subir ambiente (make up)",
+      "type": "shell",
+      "command": "make up",
+      "group": "build"
+    },
+    {
+      "label": "Rodar testes (pytest)",
+      "type": "shell",
+      "command": "pytest",
+      "group": "test"
+    },
+    {
+      "label": "Rodar pipeline",
+      "type": "shell",
+      "command": "make pipeline",
+      "group": "build"
+    },
+    {
+      "label": "Derrubar ambiente (make down)",
+      "type": "shell",
+      "command": "make down",
+      "group": "build"
+    }
+  ]
+}
