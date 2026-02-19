@@ -102,9 +102,6 @@ Abra um terminal no Vscode e teste o comando:<br>
 
 ### 5. Crie o arquivo .env na raiz do projeto utilizando o VsCode<br>
 Copie o conteúdo do arquivo example_env e cole no arquivo .env<br>
-cadastre o seu e-mail na variavel ALERT_EMAIL para receber as mensagens do airflow<br>
-cadastre na variavel SENDER_EMAIL o e-mail responsável por enviar as mensagens pelo airflow<br>
-cadastre na variavel APP_PASS a senha de aplicativo fornecida pelo gerenciador do e-mail cadastrado na variavel SENDER_EMAIL<br>
 
 ### 6. Execute o comando abaixo no terminal do VsCode:<br>
 `python -m pip install cryptography`<br>
@@ -113,9 +110,15 @@ cadastre na variavel APP_PASS a senha de aplicativo fornecida pelo gerenciador d
 `make fernet` ou 	`python -c "from cryptography.fernet import Fernet; print(Fernet.generate_key().decode())"`<br>
 Copie a chave e cole na variavel FERNET_KEY no arquivo .env dentro do VsCode<br>
 
+### 8. Cadastre o ALERT_EMAIL através do comando:<br>
+`make alert-email EMAIL=seuEmail@bla.com`<br>
+Este email tem a finalidade de enviar as mensagens do airflow<br>
 
+### 9. Suba a Stack executando os comandos abaixo:<br>
+Se for a PRIMEIRA VEZ que estiver subindo a stack utilize o comando 
+`make build`
 
-### 8. Suba a Stack executando os comando<br>
+Nas demais vezes utilize o comando
 `make up` ou `docker compose up -d --build`<br>
 
 Acesse o Airflow em http://localhost:8080 com as credenciais abaixo:<br>
@@ -123,18 +126,29 @@ Acesse o Airflow em http://localhost:8080 com as credenciais abaixo:<br>
 user: airflow<br>
 pass: airflow<br>
 
-## 🧪 4. Rodar pipeline
-### Para executar um pipeline execute os comandos a seguir:
-`make dag` ou `docker exec -it airflow_webserver airflow dags trigger brewery_datalake_pipeline`
-### Você também pode Listar as Dags e as tasks com os comandos:
-`make ls-dag` ou `docker exec -it airflow_webserver ls /opt/airflow/dags`
-`make ls-task` ou `docker exec -it airflow_webserver airflow tasks list brewery_datalake_pipeline`
-### Caso queira executar o pipeline para uma data especifica utilize o formato 2026-02-17 após os comandos abaixo, 
-caso nenhuma data seja informada será utilizada a data do dia
-`make pipeline` ou `docker exec -it airflow_webserver airflow dags test brewery_datalake_pipeline 2026-02-17`
+## 🧪 Execute o pipeline
+### Para executar um pipeline execute os comandos a seguir:<br>
+`make dag` ou `docker exec -it airflow_webserver airflow dags trigger brewery_datalake_pipeline`<br>
 
-##📊 5. Rodar Testes
-`make test` ou `docker exec -it airflow_scheduler bash -lc "pytest -q /opt/airflow/tests"`
+### Você também pode Listar as Dags e as tasks com os comandos:<br>
+`make ls-dag` ou `docker exec -it airflow_webserver ls /opt/airflow/dags`<br>
+`make ls-task` ou `docker exec -it airflow_webserver airflow tasks list brewery_datalake_pipeline`<br>
+
+### Caso queira executar o pipeline para uma data especifica utilize o formato 2026-02-17 após os comandos abaixo:<br>
+caso nenhuma data seja informada será utilizada a data do dia<br>
+`make pipeline` ou `docker exec -it airflow_webserver airflow dags test brewery_datalake_pipeline 2026-02-17`<br>
+
+### Para fazer consultas no Postegres:<br>
+`make postgres`<br>
+dentro banco rode as queries:<br>
+`SELECT * FROM audit.dag_runs ORDER BY id DESC LIMIT 5;`<br>
+`SELECT * FROM audit.task_events ORDER BY id DESC LIMIT 20;`<br>
+
+### Para executar os testes:<br>
+`make test` ou `docker exec -it airflow_scheduler bash -lc "pytest -q /opt/airflow/tests"`<br>
+
+##📊 Para parar o conteiner
+`make down` ou `docker compose down`
 
 👤 Autor
 Marco Aurélio
