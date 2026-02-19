@@ -2,6 +2,7 @@ services:
 
   postgres:
     image: postgres:15
+    platform: linux/amd64
     container_name: airflow_postgres
     restart: always
     environment:
