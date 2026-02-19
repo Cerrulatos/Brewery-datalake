@@ -68,18 +68,23 @@ Pytest
 ## 🚀 Como rodar
 
 ### Pré-requisitos
-- GIT
-- VScode
-- Docker
-- Docker Compose
+- Instale o GIT bash
+- Instale o VScode
+- Instale o Docker desktop
 - Make
 
 ---
 
-### 1. Clone
-Crie uma pasta para clonar o projeto e execute o comando
+### 1. Faça o Clone do projeto em uma pasta com o comando
 `git clone https://github.com/Cerrulatos/Brewery-datalake.git`
-Agora abra a pasta do projeto no VS code
+
+### 2. Abra o docker desktop 
+Espere aparecer: Docker is running
+
+### 3. Abra o VsCode
+Importe o projeto (File → Open Folder → selecionar o projeto)
+Abra um terminal no Vscode e teste o comando:
+`docker version`
 
 ### 2. Configure as variaveis editando o arquivo criando arquivo .env
 `cp example_env .env`
@@ -91,8 +96,8 @@ Copie a chave e cole na variavel FERNET_KEY
 ### 3. Suba a Stack executando os comando
 `make up` ou `docker compose up -d --build`
 
-O Airflow ficará disponível em:
-http://localhost:8080
+Acesse o Airflow em http://localhost:8080 com as credenciais abaixo:
+
 user: airflow
 pass: airflow
 
