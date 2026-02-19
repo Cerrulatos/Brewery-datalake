@@ -80,12 +80,14 @@ Espere aparecer: Docker is running no Docker desktop<br>
 
 ### 2. Abra o powershell como administrador<br>
 Execute o comando `where.exe make` para consultar o caminho do make<br>
-Copie o path e insira no windows com o comando abaixo:<br>
+Copie o path e insira nas variaveis de ambiente do windows com o comando abaixo:<br>
 `[Environment]::SetEnvironmentVariable(
   "Path",
   $env:Path + ";C:\Program Files (x86)\GnuWin32\bin",
   [EnvironmentVariableTarget]::Machine
 )`<br>
+O caminho padrão do make normalmente é: C:\Program Files (x86)\GnuWin32<br>
+Você também pode inserir esta variavel manualmente<br>
 
 ### 3. Faça o Clone do projeto em uma pasta com o comando<br>
 `git clone https://github.com/Cerrulatos/Brewery-datalake.git`<br>
