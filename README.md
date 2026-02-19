@@ -67,33 +67,53 @@ Pytest
 
 ## 🚀 Como rodar
 
-### Pré-requisitos
-- Instale o GIT bash
+### Instale os programas abaixo
+- Instale o GIT for windows
 - Instale o VScode
 - Instale o Docker desktop
-- Make
+- Instale o Make
+- Instale o Python 3.8
 
 ---
+### 1. Abra o Docker Desktop
+Espere aparecer: Docker is running no Docker desktop
 
-### 1. Faça o Clone do projeto em uma pasta com o comando
+### 2. Abra o powershell como administrador
+Execute o comando `where.exe make` para consultar o caminho do make
+Copie o path e insira no windows com o comando abaixo:
+`[Environment]::SetEnvironmentVariable(
+  "Path",
+  $env:Path + ";C:\Program Files (x86)\GnuWin32\bin",
+  [EnvironmentVariableTarget]::Machine
+)`
+
+### 3. Faça o Clone do projeto em uma pasta com o comando
 `git clone https://github.com/Cerrulatos/Brewery-datalake.git`
 
-### 2. Abra o docker desktop 
-Espere aparecer: Docker is running
-
-### 3. Abra o VsCode
+### 4. Abra o VsCode
 Importe o projeto (File → Open Folder → selecionar o projeto)
 Abra um terminal no Vscode e teste o comando:
-`docker version`
+`docker --version`
+`make --version`
+`python --version`
+É importante que esses 3 comandos funcionem, caso contrário o projeto não será executado com sucesso portando nesta situação revisite os passos de instalação do software que não funcionar corretamente.
 
-### 2. Configure as variaveis editando o arquivo criando arquivo .env
-`cp example_env .env`
-cadastre o seu e-mail na variavel ALERT_EMAIL
-Gere o código FERNET_KEY através dos comandos:
+### 5. Crie o arquivo .env na raiz do projeto utilizando o VsCode
+Copie o conteúdo do arquivo example_env e cole no arquivo .env
+cadastre o seu e-mail na variavel ALERT_EMAIL para receber as mensagens do airflow
+cadastre na variavel SENDER_EMAIL o e-mail responsável por enviar as mensagens pelo airflow
+cadastre na variavel APP_PASS a senha de aplicativo fornecida pelo gerenciador do e-mail cadastrado na variavel SENDER_EMAIL
+
+### 6. Execute o comando abaixo no terminal do VsCode:
+`python -m pip install cryptography`
+
+### 7. Gere o código FERNET_KEY através dos comandos:
 `make fernet` ou 	`python -c "from cryptography.fernet import Fernet; print(Fernet.generate_key().decode())"`
-Copie a chave e cole na variavel FERNET_KEY
+Copie a chave e cole na variavel FERNET_KEY no arquivo .env dentro do VsCode
 
-### 3. Suba a Stack executando os comando
+
+
+### 8. Suba a Stack executando os comando
 `make up` ou `docker compose up -d --build`
 
 Acesse o Airflow em http://localhost:8080 com as credenciais abaixo:<br>
