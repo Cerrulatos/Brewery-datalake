@@ -76,45 +76,45 @@ Pytest
 
 ---
 ### 1. Abra o Docker Desktop
-Espere aparecer: Docker is running no Docker desktop
+Espere aparecer: Docker is running no Docker desktop<br>
 
-### 2. Abra o powershell como administrador
-Execute o comando `where.exe make` para consultar o caminho do make
-Copie o path e insira no windows com o comando abaixo:
+### 2. Abra o powershell como administrador<br>
+Execute o comando `where.exe make` para consultar o caminho do make<br>
+Copie o path e insira no windows com o comando abaixo:<br>
 `[Environment]::SetEnvironmentVariable(
   "Path",
   $env:Path + ";C:\Program Files (x86)\GnuWin32\bin",
   [EnvironmentVariableTarget]::Machine
-)`
+)`<br>
 
-### 3. Faça o Clone do projeto em uma pasta com o comando
-`git clone https://github.com/Cerrulatos/Brewery-datalake.git`
+### 3. Faça o Clone do projeto em uma pasta com o comando<br>
+`git clone https://github.com/Cerrulatos/Brewery-datalake.git`<br>
 
-### 4. Abra o VsCode
-Importe o projeto (File → Open Folder → selecionar o projeto)
-Abra um terminal no Vscode e teste o comando:
-`docker --version`
-`make --version`
-`python --version`
-É importante que esses 3 comandos funcionem, caso contrário o projeto não será executado com sucesso portando nesta situação revisite os passos de instalação do software que não funcionar corretamente.
+### 4. Abra o VsCode<br>
+Importe o projeto (File → Open Folder → selecionar o projeto)<br>
+Abra um terminal no Vscode e teste o comando:<br>
+`docker --version`<br>
+`make --version`<br>
+`python --version`<br>
+É importante que esses 3 comandos funcionem, caso contrário o projeto não será executado com sucesso portando nesta situação revisite os passos de instalação do software que não funcionar corretamente.<br>
 
-### 5. Crie o arquivo .env na raiz do projeto utilizando o VsCode
-Copie o conteúdo do arquivo example_env e cole no arquivo .env
-cadastre o seu e-mail na variavel ALERT_EMAIL para receber as mensagens do airflow
-cadastre na variavel SENDER_EMAIL o e-mail responsável por enviar as mensagens pelo airflow
-cadastre na variavel APP_PASS a senha de aplicativo fornecida pelo gerenciador do e-mail cadastrado na variavel SENDER_EMAIL
+### 5. Crie o arquivo .env na raiz do projeto utilizando o VsCode<br>
+Copie o conteúdo do arquivo example_env e cole no arquivo .env<br>
+cadastre o seu e-mail na variavel ALERT_EMAIL para receber as mensagens do airflow<br>
+cadastre na variavel SENDER_EMAIL o e-mail responsável por enviar as mensagens pelo airflow<br>
+cadastre na variavel APP_PASS a senha de aplicativo fornecida pelo gerenciador do e-mail cadastrado na variavel SENDER_EMAIL<br>
 
-### 6. Execute o comando abaixo no terminal do VsCode:
-`python -m pip install cryptography`
+### 6. Execute o comando abaixo no terminal do VsCode:<br>
+`python -m pip install cryptography`<br>
 
-### 7. Gere o código FERNET_KEY através dos comandos:
-`make fernet` ou 	`python -c "from cryptography.fernet import Fernet; print(Fernet.generate_key().decode())"`
-Copie a chave e cole na variavel FERNET_KEY no arquivo .env dentro do VsCode
+### 7. Gere o código FERNET_KEY através dos comandos:<br>
+`make fernet` ou 	`python -c "from cryptography.fernet import Fernet; print(Fernet.generate_key().decode())"`<br>
+Copie a chave e cole na variavel FERNET_KEY no arquivo .env dentro do VsCode<br>
 
 
 
-### 8. Suba a Stack executando os comando
-`make up` ou `docker compose up -d --build`
+### 8. Suba a Stack executando os comando<br>
+`make up` ou `docker compose up -d --build`<br>
 
 Acesse o Airflow em http://localhost:8080 com as credenciais abaixo:<br>
 
