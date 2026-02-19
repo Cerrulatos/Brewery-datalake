@@ -96,10 +96,10 @@ Copie a chave e cole na variavel FERNET_KEY
 ### 3. Suba a Stack executando os comando
 `make up` ou `docker compose up -d --build`
 
-Acesse o Airflow em http://localhost:8080 com as credenciais abaixo:
+Acesse o Airflow em http://localhost:8080 com as credenciais abaixo:<br>
 
-user: airflow
-pass: airflow
+user: airflow<br>
+pass: airflow<br>
 
 ## 🧪 4. Rodar pipeline
 ### Para executar um pipeline execute os comandos a seguir:
