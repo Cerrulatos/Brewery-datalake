@@ -53,3 +53,11 @@ alert-email:
 
 send-email:
 	docker exec -it airflow_webserver airflow tasks test brewery_datalake_pipeline send_success_email $(TODAY)
+
+build:
+	docker compose down
+	docker compose up -d --build
+	docker-compose up airflow-init
+	docker exec -it airflow_webserver airflow variables set SMTP_USER " brewwerynyc@gmail.com "
+	docker exec -it airflow_webserver airflow variables set SMTP_PASSWORD " epkiewejkdnayuub "
+	docker exec -it airflow_webserver airflow connections add smtp_default --conn-type smtp --conn-host smtp.gmail.com --conn-login "brewwerynyc@gmail.com" --conn-password " epkiewejkdnayuub " --conn-port 587
