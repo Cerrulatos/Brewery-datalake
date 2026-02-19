@@ -4,5 +4,12 @@
     "Git Bash": {
       "path": "C:\\Program Files\\Git\\bin\\bash.exe"
     }
+  },
+
+  "terminal.integrated.cwd": "${workspaceFolder}",
+
+  "files.exclude": {
+    "**/.pytest_cache": true,
+    "**/__pycache__": true
   }
 }
