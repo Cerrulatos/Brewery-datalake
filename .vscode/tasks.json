@@ -2,28 +2,119 @@
   "version": "2.0.0",
   "tasks": [
     {
-      "label": "Subir ambiente (make up)",
+      "label": "Up (docker compose) — make up",
       "type": "shell",
       "command": "make up",
-      "group": "build"
+      "group": "build",
+      "problemMatcher": []
     },
     {
-      "label": "Rodar testes (pytest)",
-      "type": "shell",
-      "command": "pytest",
-      "group": "test"
-    },
-    {
-      "label": "Rodar pipeline",
-      "type": "shell",
-      "command": "make pipeline",
-      "group": "build"
-    },
-    {
-      "label": "Derrubar ambiente (make down)",
+      "label": "Down — make down",
       "type": "shell",
       "command": "make down",
-      "group": "build"
+      "group": "build",
+      "problemMatcher": []
+    },
+    {
+      "label": "PS (status dos containers) — make ps",
+      "type": "shell",
+      "command": "make ps",
+      "group": "build",
+      "problemMatcher": []
+    },
+    {
+      "label": "Testes (pytest no airflow_scheduler) — make test",
+      "type": "shell",
+      "command": "make test",
+      "group": "test",
+      "problemMatcher": []
+    },
+    {
+      "label": "Lint (ruff) — make lint",
+      "type": "shell",
+      "command": "make lint",
+      "group": "test",
+      "problemMatcher": []
+    },
+    {
+      "label": "Run local (extract_breweries.py) — make run-local",
+      "type": "shell",
+      "command": "make run-local",
+      "group": "build",
+      "problemMatcher": []
+    },
+    {
+      "label": "Logs (follow) — make logs",
+      "type": "shell",
+      "command": "make logs",
+      "isBackground": true,
+      "problemMatcher": []
+    },
+    {
+      "label": "Restart stack — make restart",
+      "type": "shell",
+      "command": "make restart",
+      "group": "build",
+      "problemMatcher": []
+    },
+    {
+      "label": "Trigger DAG — make dag",
+      "type": "shell",
+      "command": "make dag",
+      "group": "build",
+      "problemMatcher": []
+    },
+    {
+      "label": "List DAGs folder — make ls-dag",
+      "type": "shell",
+      "command": "make ls-dag",
+      "group": "build",
+      "problemMatcher": []
+    },
+    {
+      "label": "List tasks (brewery_datalake_pipeline) — make ls-task",
+      "type": "shell",
+      "command": "make ls-task",
+      "group": "build",
+      "problemMatcher": []
+    },
+    {
+      "label": "Test DAG (hoje) — make pipeline",
+      "type": "shell",
+      "command": "make pipeline",
+      "group": "test",
+      "problemMatcher": []
+    },
+    {
+      "label": "Shell Airflow container — make airflow",
+      "type": "shell",
+      "command": "make airflow",
+      "problemMatcher": []
+    },
+    {
+      "label": "Postgres psql — make postgres",
+      "type": "shell",
+      "command": "make postgres",
+      "problemMatcher": []
+    },
+    {
+      "label": "Generate Fernet key — make fernet",
+      "type": "shell",
+      "command": "make fernet",
+      "problemMatcher": []
+    },
+    {
+      "label": "Set ALERT_EMAIL var — make alert-email",
+      "type": "shell",
+      "command": "make alert-email",
+      "problemMatcher": []
+    },
+    {
+      "label": "Test send_success_email task (hoje) — make send-email",
+      "type": "shell",
+      "command": "make send-email",
+      "group": "test",
+      "problemMatcher": []
     }
   ]
 }
