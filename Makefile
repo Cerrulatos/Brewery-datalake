@@ -57,6 +57,21 @@ send-email:
 build:
 	docker compose down
 	docker compose up -d --build
-	docker exec -it airflow_webserver airflow variables set SMTP_USER " brewwerynyc@gmail.com "
-	docker exec -it airflow_webserver airflow variables set SMTP_PASSWORD " epkiewejkdnayuub "
-	docker exec -it airflow_webserver airflow connections add smtp_default --conn-type smtp --conn-host smtp.gmail.com --conn-login "brewwerynyc@gmail.com" --conn-password " epkiewejkdnayuub " --conn-port 587
+	docker exec -it airflow_webserver airflow variables set SMTP_USER "brewwerynyc@gmail.com"
+	docker exec -it airflow_webserver airflow variables set SMTP_PASSWORD "epkiewejkdnayuub"
+	docker exec -it airflow_webserver airflow connections add smtp_default --conn-type smtp --conn-host smtp.gmail.com --conn-login "brewwerynyc@gmail.com" --conn-password "epkiewejkdnayuub" --conn-port 587
+	docker exec -it airflow_webserver airflow variables set QUALITY_THRESHOLDS "$$(cat <<'EOF'
+{
+  "min_silver_vs_bronze_ratio": 0.7,
+  "max_null_name_pct": 5,
+  "max_null_city_state_pct": 10,
+  "max_duplicate_id_pct": 1,
+  "max_duration_seconds": 180,
+  "min_duration_seconds": 2,
+  "max_invalid_brewery_type": 1,
+  "fail_on_schema_missing": true,
+  "fail_on_schema_extra": false
+}
+EOF
+)"
+	docker exec -it airflow_webserver airflow dags unpause brewery_datalake_pipeline
