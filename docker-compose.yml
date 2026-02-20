@@ -16,6 +16,7 @@ services:
       AUDIT_DB_PASSWORD: airflow
     volumes:
       - postgres-db-volume:/var/lib/postgresql/data
+      - ./src/monitoring/sql:/docker-entrypoint-initdb.d
     ports:
       - "5432:5432"
 
