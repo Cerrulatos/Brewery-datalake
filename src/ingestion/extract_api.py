@@ -24,11 +24,14 @@ def extract_breweries(per_page=200, max_pages=500, execution_date: str = None):
     # Carrega .env somente quando a função roda (evita side-effects em testes/import)
     load_dotenv(".env", override=False)
     execution_date = _resolve_execution_date(execution_date)
+    URL_API = os.getenv('URL_API', "https://api.openbrewerydb.org/v1/breweries?per_page=200")
+    DATALAKE_PATH = os.getenv('DATALAKE_PATH', "/opt/airflow/datalake")
+    LOG_FOLDER = os.getenv('LOG_FOLDER', "/opt/airflow/logs")
 
     # URL da API
-    api_url = os.getenv('URL_API')
-    datalake_root = os.getenv("DATALAKE_PATH")
-    LOG_FOLDER = os.getenv("LOG_FOLDER")
+    api_url = URL_API
+    datalake_root = DATALAKE_PATH
+    LOG_FOLDER = LOG_FOLDER
 
     if not api_url:
         return {"success": False, "error": "URL_API não definida no ambiente (.env)."}

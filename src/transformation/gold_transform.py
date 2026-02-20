@@ -22,19 +22,20 @@ def transform_to_gold(execution_date: str = None):
     # Carrega .env somente quando a função roda (evita side-effects em testes/import)
     load_dotenv(".env", override=False)
     execution_date = _resolve_execution_date(execution_date)
+    DATALAKE_PATH = os.getenv('DATALAKE_PATH', "/opt/airflow/datalake")
     
     # Variavel para quantificar tempo do processo
     start_time = time.time()
 
     # Path das camadas
-    datalake_root = os.getenv("DATALAKE_PATH")
+    datalake_root = DATALAKE_PATH
     if not datalake_root:
         return {"success": False, "error": "DATALAKE_PATH not set"}
     SILVER_PATH = os.path.join(datalake_root, "silver")
     GOLD_PATH = os.path.join(datalake_root, "gold")
 
     # Variaveis do log
-    log_root = os.getenv("LOG_FOLDER")
+    log_root = os.getenv('LOG_FOLDER', "/opt/airflow/logs")
     logger = None
     if log_root and os.getenv("ENV") != "TEST":
         log_folder = os.path.join(log_root, "transform")
