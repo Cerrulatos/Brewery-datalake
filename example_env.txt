@@ -1,0 +1,10 @@
+# API
+URL_API=https://api.openbrewerydb.org/v1/breweries?per_page=200
+
+# Paths inside containers
+LOG_FOLDER=/opt/airflow/logs
+DATALAKE_PATH=/opt/airflow/datalake
+
+# Email
+SENDER_EMAIL=brewwerynyc@gmail.com
+APP_PASS=epki ewej kdna yuub

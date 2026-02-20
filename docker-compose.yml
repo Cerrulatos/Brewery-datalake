@@ -31,9 +31,14 @@ services:
       AIRFLOW__CORE__EXECUTOR: LocalExecutor
       AIRFLOW__DATABASE__SQL_ALCHEMY_CONN: postgresql+psycopg2://airflow:airflow@postgres/airflow
       AIRFLOW__CORE__FERNET_KEY: ${FERNET_KEY}
+      AIRFLOW__WEBSERVER__SECRET_KEY: ${SECRET_KEY}
       AIRFLOW__CORE__LOAD_EXAMPLES: "false"
       DATALAKE_PATH: /opt/airflow/datalake
       LOG_FOLDER: /opt/airflow/logs
+      PYTHONPATH: /opt/airflow
+      URL_API: ${URL_API}
+      SENDER_EMAIL: ${SENDER_EMAIL}
+      APP_PASS: ${APP_PASS}
     command: >
       bash -c "
       airflow db migrate &&
@@ -53,11 +58,17 @@ services:
     environment:
       AIRFLOW__CORE__EXECUTOR: LocalExecutor
       AIRFLOW__DATABASE__SQL_ALCHEMY_CONN: postgresql+psycopg2://airflow:airflow@postgres/airflow
+
+      # Chaves vindas do .env
+      AIRFLOW__CORE__FERNET_KEY: ${FERNET_KEY}
+      AIRFLOW__WEBSERVER__SECRET_KEY: ${SECRET_KEY}
+      AIRFLOW__CORE__LOAD_EXAMPLES: "false"
       
       # Permite importar src
       PYTHONPATH: /opt/airflow
       DATALAKE_PATH: /opt/airflow/datalake
       LOG_FOLDER: /opt/airflow/logs
+      URL_API: ${URL_API}
 
     # SMTP Configuration
       AIRFLOW__SMTP__SMTP_HOST: smtp.gmail.com
@@ -65,15 +76,15 @@ services:
       AIRFLOW__SMTP__SMTP_STARTTLS: "true"
       AIRFLOW__SMTP__SMTP_SSL: "false"
       AIRFLOW__SMTP__SMTP_MAIL_FROM: ${SENDER_EMAIL}
-      
-      AIRFLOW__CORE__FERNET_KEY: ${FERNET_KEY}
-      AIRFLOW__CORE__LOAD_EXAMPLES: "false"
+      AIRFLOW__SMTP__SMTP_USER: ${SENDER_EMAIL}
+      AIRFLOW__SMTP__SMTP_PASSWORD: ${APP_PASS}
 
     volumes:
       - ./dags:/opt/airflow/dags
       - ./src:/opt/airflow/src
       - ./datalake:/opt/airflow/datalake
       - ./tests:/opt/airflow/tests
+      - ./logs:/opt/airflow/logs
 
     ports:
       - "8080:8080"
@@ -94,10 +105,16 @@ services:
       AIRFLOW__CORE__EXECUTOR: LocalExecutor
       AIRFLOW__DATABASE__SQL_ALCHEMY_CONN: postgresql+psycopg2://airflow:airflow@postgres/airflow
 
+      # Chaves vindas do .env
+      AIRFLOW__CORE__FERNET_KEY: ${FERNET_KEY}
+      AIRFLOW__WEBSERVER__SECRET_KEY: ${SECRET_KEY}
+      AIRFLOW__CORE__LOAD_EXAMPLES: "false"
+
       # Permite importar src
       PYTHONPATH: /opt/airflow
       DATALAKE_PATH: /opt/airflow/datalake
       LOG_FOLDER: /opt/airflow/logs
+      URL_API: ${URL_API}
       
     # SMTP Configuration
       AIRFLOW__SMTP__SMTP_HOST: smtp.gmail.com
@@ -105,15 +122,16 @@ services:
       AIRFLOW__SMTP__SMTP_STARTTLS: "true"
       AIRFLOW__SMTP__SMTP_SSL: "false"
       AIRFLOW__SMTP__SMTP_MAIL_FROM: ${SENDER_EMAIL}
-      
-      AIRFLOW__CORE__FERNET_KEY: ${FERNET_KEY}
-      AIRFLOW__CORE__LOAD_EXAMPLES: "false"
+      # Usuário/senha SMTP (Airflow)
+      AIRFLOW__SMTP__SMTP_USER: ${SENDER_EMAIL}
+      AIRFLOW__SMTP__SMTP_PASSWORD: ${APP_PASS}
 
     volumes:
       - ./dags:/opt/airflow/dags
       - ./src:/opt/airflow/src
       - ./datalake:/opt/airflow/datalake
       - ./tests:/opt/airflow/tests
+      - ./logs:/opt/airflow/logs
 
     command: scheduler
 
