@@ -93,7 +93,7 @@ def _audit_dag_upsert(context, status, metrics=None, error=None):
 def check_api_health(**context):
     _audit_task_event(context, status="started")
 
-    api_url = os.getenv("URL_API")
+    api_url = os.getenv('URL_API', "https://api.openbrewerydb.org/v1/breweries?per_page=200")
     if not api_url:
         fail_metrics = {
             "success": False,

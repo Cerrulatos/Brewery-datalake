@@ -50,7 +50,7 @@ def transform_to_silver(execution_date: str = None):
     execution_date = _resolve_execution_date(execution_date)
     
     # Path das camadas
-    datalake_root = os.getenv("DATALAKE_PATH")
+    datalake_root = os.getenv('DATALAKE_PATH', "/opt/airflow/datalake")
     if not datalake_root:
         return {"success": False, "error": "DATALAKE_PATH not set"}
     BRONZE_PATH = os.path.join(datalake_root, "raw")
@@ -60,7 +60,7 @@ def transform_to_silver(execution_date: str = None):
     start_time = time.time()
 
     # Variaveis do log
-    log_root = os.getenv("LOG_FOLDER")
+    log_root = os.getenv('LOG_FOLDER', "/opt/airflow/logs")
     logger = None
     if log_root and os.getenv("ENV") != "TEST":
         log_folder = os.path.join(log_root, "transform")

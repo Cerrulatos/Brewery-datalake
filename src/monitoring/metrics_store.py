@@ -7,7 +7,7 @@ from dotenv import load_dotenv
 # Caminho do banco
 load_dotenv('cred.env')
 DATALAKE_PATH = os.getenv('DATALAKE_PATH', "/opt/airflow/datalake")
-DB_PATH = os.path.join(os.getenv('DATALAKE_PATH'), "metrics", "metrics.db")
+DB_PATH = os.path.join(DATALAKE_PATH, "metrics", "metrics.db")
 
 # Cria o banco e a tabela caso não existam.
 def init_db():
