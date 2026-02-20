@@ -52,13 +52,13 @@ send-email:
 	docker exec -it airflow_webserver airflow tasks test brewery_datalake_pipeline send_success_email $(TODAY)
 
 build:
+	@> .env
+	@SECRET_KEY=$$(python -c "import secrets; print(secrets.token_hex(32))" 2>/dev/null || py -3.8 -c "import secrets; print(secrets.token_hex(32))" 2>/dev/null); FERNET_KEY=$$(python -c "from cryptography.fernet import Fernet; print(Fernet.generate_key().decode())" 2>/dev/null || py -3.8 -c "from cryptography.fernet import Fernet; print(Fernet.generate_key().decode())" 2>/dev/null); echo "Generated secret key: $$SECRET_KEY"; echo "Generated fernet key: $$FERNET_KEY"; if [ -f .env ]; then grep -q "^SECRET_KEY=" .env && sed -i "s/^SECRET_KEY=./SECRET_KEY=$$SECRET_KEY/" .env || echo "SECRET_KEY=$$SECRET_KEY" >> .env; grep -q "^FERNET_KEY=" .env && sed -i "s/^FERNET_KEY=./FERNET_KEY=$$FERNET_KEY/" .env || echo "FERNET_KEY=$$FERNET_KEY" >> .env; else echo "SECRET_KEY=$$SECRET_KEY" > .env; echo "FERNET_KEY=$$FERNET_KEY" >> .env; fi; echo "Saved to .env"
+	@touch .env; printf "\n" >> .env; cat example_env.txt >> .env
 	@yes | docker compose down --volumes --remove-orphans || true
 	@docker compose up -d postgres
 	@docker compose run --rm airflow-init
 	@docker compose up -d --build airflow-webserver airflow-scheduler
-	@> .env
-	@SECRET_KEY=$$(python -c "import secrets; print(secrets.token_hex(32))" 2>/dev/null || py -3.8 -c "import secrets; print(secrets.token_hex(32))" 2>/dev/null); FERNET_KEY=$$(python -c "from cryptography.fernet import Fernet; print(Fernet.generate_key().decode())" 2>/dev/null || py -3.8 -c "from cryptography.fernet import Fernet; print(Fernet.generate_key().decode())" 2>/dev/null); echo "Generated secret key: $$SECRET_KEY"; echo "Generated fernet key: $$FERNET_KEY"; if [ -f .env ]; then grep -q "^SECRET_KEY=" .env && sed -i "s/^SECRET_KEY=./SECRET_KEY=$$SECRET_KEY/" .env || echo "SECRET_KEY=$$SECRET_KEY" >> .env; grep -q "^FERNET_KEY=" .env && sed -i "s/^FERNET_KEY=./FERNET_KEY=$$FERNET_KEY/" .env || echo "FERNET_KEY=$$FERNET_KEY" >> .env; else echo "SECRET_KEY=$$SECRET_KEY" > .env; echo "FERNET_KEY=$$FERNET_KEY" >> .env; fi; echo "Saved to .env"
-	@touch .env; printf "\n" >> .env; cat example_env.txt >> .env
 	@docker compose up -d --build
 	@docker ps
 	@docker exec -i airflow_webserver airflow version
