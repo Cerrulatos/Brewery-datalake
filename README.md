@@ -103,23 +103,23 @@ Abra um terminal no Vscode e teste o comando:<br>
 ### 5. Execute o comando abaixo no terminal do VsCode:<br>
 `python -m pip install cryptography`<br>
 
-### 6. Cadastre o ALERT_EMAIL através do comando:<br>
-`make alert-email EMAIL=seuEmail@bla.com`<br>
-Este email tem a finalidade de enviar as mensagens do airflow<br>
-
-### 7. Suba a Stack executando os comandos abaixo:<br>
+### 6. Suba a Stack executando os comandos abaixo:<br>
 Se for a PRIMEIRA VEZ que estiver subindo a stack utilize o comando 
 `make build`
 
 Nas demais vezes utilize o comando
 `make up` ou `docker compose up -d --build`<br>
 
-Acesse o Airflow em http://localhost:8080 com as credenciais abaixo:<br>
+### 7. Cadastre o ALERT_EMAIL através do comando:<br>
+`make alert-email EMAIL=seuEmail@bla.com`<br>
+Este email tem a finalidade de enviar as mensagens do airflow<br>
+
+### 8. Acesse o Airflow em http://localhost:8080 com as credenciais abaixo:<br>
 
 user: airflow<br>
 pass: airflow<br>
 
-### 8. Execute o pipeline
+### 9. Execute o pipeline
 ### Para executar um pipeline execute os comandos a seguir:<br>
 `make dag` ou `docker exec -it airflow_webserver airflow dags trigger brewery_datalake_pipeline`<br>
 
@@ -140,7 +140,7 @@ dentro banco rode as queries:<br>
 ### Para executar os testes:<br>
 `make test` ou `docker exec -it airflow_scheduler bash -lc "pytest -q /opt/airflow/tests"`<br>
 
-### 9. Para parar o conteiner
+### 10. Para parar o conteiner
 `make down` ou `docker compose down`
 
 👤 Autor
