@@ -52,7 +52,8 @@ send-email:
 	docker exec -it airflow_webserver airflow tasks test brewery_datalake_pipeline send_success_email $(TODAY)
 
 build:
-	docker compose down
+	docker compose down -v
+	@docker exec -i airflow_postgres psql -U airflow -d airflow < src/monitoring/sql/audit_init.sql && echo "Audit schema initialized."
 	@> .env
 	@SECRET_KEY=$$(python -c "import secrets; print(secrets.token_hex(32))" 2>/dev/null || py -3.8 -c "import secrets; print(secrets.token_hex(32))" 2>/dev/null); FERNET_KEY=$$(python -c "from cryptography.fernet import Fernet; print(Fernet.generate_key().decode())" 2>/dev/null || py -3.8 -c "from cryptography.fernet import Fernet; print(Fernet.generate_key().decode())" 2>/dev/null); echo "Generated secret key: $$SECRET_KEY"; echo "Generated fernet key: $$FERNET_KEY"; if [ -f .env ]; then grep -q "^SECRET_KEY=" .env && sed -i "s/^SECRET_KEY=.*/SECRET_KEY=$$SECRET_KEY/" .env || echo "SECRET_KEY=$$SECRET_KEY" >> .env; grep -q "^FERNET_KEY=" .env && sed -i "s/^FERNET_KEY=.*/FERNET_KEY=$$FERNET_KEY/" .env || echo "FERNET_KEY=$$FERNET_KEY" >> .env; else echo "SECRET_KEY=$$SECRET_KEY" > .env; echo "FERNET_KEY=$$FERNET_KEY" >> .env; fi; echo "Saved to .env"
 	@touch .env; printf "\n" >> .env; cat example_env.txt >> .env
